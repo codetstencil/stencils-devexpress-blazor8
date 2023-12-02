@@ -1,0 +1,647 @@
+{
+  "version": 3,
+  "targets": {
+    ".NETFramework,Version=v4.8": {
+      "Pluralize.NET/1.0.2": {
+        "type": "package",
+        "compile": {
+          "lib/net46/Pluralize.NET.dll": {}
+        },
+        "runtime": {
+          "lib/net46/Pluralize.NET.dll": {}
+        }
+      },
+      "System.ComponentModel.Annotations/5.0.0": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "System.ComponentModel.DataAnnotations",
+          "mscorlib"
+        ],
+        "compile": {
+          "ref/net461/System.ComponentModel.Annotations.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net461/System.ComponentModel.Annotations.dll": {}
+        }
+      },
+      "ZeraSystems.CodeNanite.Cshtml/1.4.3": {
+        "type": "package",
+        "dependencies": {
+          "ZeraSystems.CodeNanite.Expansion": "1.4.0",
+          "ZeraSystems.CodeStencil.Contracts": "1.3.0"
+        },
+        "compile": {
+          "lib/net48/ZeraSystems.CodeNanite.Cshtml.dll": {}
+        },
+        "runtime": {
+          "lib/net48/ZeraSystems.CodeNanite.Cshtml.dll": {}
+        }
+      },
+      "ZeraSystems.CodeNanite.Expansion/1.4.3": {
+        "type": "package",
+        "dependencies": {
+          "Pluralize.NET": "1.0.2",
+          "ZeraSystems.CodeStencil.Contracts": "1.3.0"
+        },
+        "compile": {
+          "lib/net48/ZeraSystems.CodeNanite.Expansion.dll": {}
+        },
+        "runtime": {
+          "lib/net48/ZeraSystems.CodeNanite.Expansion.dll": {}
+        }
+      },
+      "ZeraSystems.CodeNanite.Schema/1.4.3": {
+        "type": "package",
+        "dependencies": {
+          "Pluralize.NET": "1.0.2",
+          "ZeraSystems.CodeStencil.Contracts": "1.3.0"
+        },
+        "compile": {
+          "lib/net48/ZeraSystems.CodeNanite.Schema.dll": {}
+        },
+        "runtime": {
+          "lib/net48/ZeraSystems.CodeNanite.Schema.dll": {}
+        }
+      },
+      "ZeraSystems.CodeStencil.Contracts/1.4.5": {
+        "type": "package",
+        "dependencies": {
+          "System.ComponentModel.Annotations": "5.0.0"
+        },
+        "compile": {
+          "lib/net48/ZeraSystems.CodeStencil.Contracts.dll": {}
+        },
+        "runtime": {
+          "lib/net48/ZeraSystems.CodeStencil.Contracts.dll": {}
+        }
+      }
+    },
+    ".NETFramework,Version=v4.8/win": {
+      "Pluralize.NET/1.0.2": {
+        "type": "package",
+        "compile": {
+          "lib/net46/Pluralize.NET.dll": {}
+        },
+        "runtime": {
+          "lib/net46/Pluralize.NET.dll": {}
+        }
+      },
+      "System.ComponentModel.Annotations/5.0.0": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "System.ComponentModel.DataAnnotations",
+          "mscorlib"
+        ],
+        "compile": {
+          "ref/net461/System.ComponentModel.Annotations.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net461/System.ComponentModel.Annotations.dll": {}
+        }
+      },
+      "ZeraSystems.CodeNanite.Cshtml/1.4.3": {
+        "type": "package",
+        "dependencies": {
+          "ZeraSystems.CodeNanite.Expansion": "1.4.0",
+          "ZeraSystems.CodeStencil.Contracts": "1.3.0"
+        },
+        "compile": {
+          "lib/net48/ZeraSystems.CodeNanite.Cshtml.dll": {}
+        },
+        "runtime": {
+          "lib/net48/ZeraSystems.CodeNanite.Cshtml.dll": {}
+        }
+      },
+      "ZeraSystems.CodeNanite.Expansion/1.4.3": {
+        "type": "package",
+        "dependencies": {
+          "Pluralize.NET": "1.0.2",
+          "ZeraSystems.CodeStencil.Contracts": "1.3.0"
+        },
+        "compile": {
+          "lib/net48/ZeraSystems.CodeNanite.Expansion.dll": {}
+        },
+        "runtime": {
+          "lib/net48/ZeraSystems.CodeNanite.Expansion.dll": {}
+        }
+      },
+      "ZeraSystems.CodeNanite.Schema/1.4.3": {
+        "type": "package",
+        "dependencies": {
+          "Pluralize.NET": "1.0.2",
+          "ZeraSystems.CodeStencil.Contracts": "1.3.0"
+        },
+        "compile": {
+          "lib/net48/ZeraSystems.CodeNanite.Schema.dll": {}
+        },
+        "runtime": {
+          "lib/net48/ZeraSystems.CodeNanite.Schema.dll": {}
+        }
+      },
+      "ZeraSystems.CodeStencil.Contracts/1.4.5": {
+        "type": "package",
+        "dependencies": {
+          "System.ComponentModel.Annotations": "5.0.0"
+        },
+        "compile": {
+          "lib/net48/ZeraSystems.CodeStencil.Contracts.dll": {}
+        },
+        "runtime": {
+          "lib/net48/ZeraSystems.CodeStencil.Contracts.dll": {}
+        }
+      }
+    },
+    ".NETFramework,Version=v4.8/win-arm64": {
+      "Pluralize.NET/1.0.2": {
+        "type": "package",
+        "compile": {
+          "lib/net46/Pluralize.NET.dll": {}
+        },
+        "runtime": {
+          "lib/net46/Pluralize.NET.dll": {}
+        }
+      },
+      "System.ComponentModel.Annotations/5.0.0": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "System.ComponentModel.DataAnnotations",
+          "mscorlib"
+        ],
+        "compile": {
+          "ref/net461/System.ComponentModel.Annotations.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net461/System.ComponentModel.Annotations.dll": {}
+        }
+      },
+      "ZeraSystems.CodeNanite.Cshtml/1.4.3": {
+        "type": "package",
+        "dependencies": {
+          "ZeraSystems.CodeNanite.Expansion": "1.4.0",
+          "ZeraSystems.CodeStencil.Contracts": "1.3.0"
+        },
+        "compile": {
+          "lib/net48/ZeraSystems.CodeNanite.Cshtml.dll": {}
+        },
+        "runtime": {
+          "lib/net48/ZeraSystems.CodeNanite.Cshtml.dll": {}
+        }
+      },
+      "ZeraSystems.CodeNanite.Expansion/1.4.3": {
+        "type": "package",
+        "dependencies": {
+          "Pluralize.NET": "1.0.2",
+          "ZeraSystems.CodeStencil.Contracts": "1.3.0"
+        },
+        "compile": {
+          "lib/net48/ZeraSystems.CodeNanite.Expansion.dll": {}
+        },
+        "runtime": {
+          "lib/net48/ZeraSystems.CodeNanite.Expansion.dll": {}
+        }
+      },
+      "ZeraSystems.CodeNanite.Schema/1.4.3": {
+        "type": "package",
+        "dependencies": {
+          "Pluralize.NET": "1.0.2",
+          "ZeraSystems.CodeStencil.Contracts": "1.3.0"
+        },
+        "compile": {
+          "lib/net48/ZeraSystems.CodeNanite.Schema.dll": {}
+        },
+        "runtime": {
+          "lib/net48/ZeraSystems.CodeNanite.Schema.dll": {}
+        }
+      },
+      "ZeraSystems.CodeStencil.Contracts/1.4.5": {
+        "type": "package",
+        "dependencies": {
+          "System.ComponentModel.Annotations": "5.0.0"
+        },
+        "compile": {
+          "lib/net48/ZeraSystems.CodeStencil.Contracts.dll": {}
+        },
+        "runtime": {
+          "lib/net48/ZeraSystems.CodeStencil.Contracts.dll": {}
+        }
+      }
+    },
+    ".NETFramework,Version=v4.8/win-x64": {
+      "Pluralize.NET/1.0.2": {
+        "type": "package",
+        "compile": {
+          "lib/net46/Pluralize.NET.dll": {}
+        },
+        "runtime": {
+          "lib/net46/Pluralize.NET.dll": {}
+        }
+      },
+      "System.ComponentModel.Annotations/5.0.0": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "System.ComponentModel.DataAnnotations",
+          "mscorlib"
+        ],
+        "compile": {
+          "ref/net461/System.ComponentModel.Annotations.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net461/System.ComponentModel.Annotations.dll": {}
+        }
+      },
+      "ZeraSystems.CodeNanite.Cshtml/1.4.3": {
+        "type": "package",
+        "dependencies": {
+          "ZeraSystems.CodeNanite.Expansion": "1.4.0",
+          "ZeraSystems.CodeStencil.Contracts": "1.3.0"
+        },
+        "compile": {
+          "lib/net48/ZeraSystems.CodeNanite.Cshtml.dll": {}
+        },
+        "runtime": {
+          "lib/net48/ZeraSystems.CodeNanite.Cshtml.dll": {}
+        }
+      },
+      "ZeraSystems.CodeNanite.Expansion/1.4.3": {
+        "type": "package",
+        "dependencies": {
+          "Pluralize.NET": "1.0.2",
+          "ZeraSystems.CodeStencil.Contracts": "1.3.0"
+        },
+        "compile": {
+          "lib/net48/ZeraSystems.CodeNanite.Expansion.dll": {}
+        },
+        "runtime": {
+          "lib/net48/ZeraSystems.CodeNanite.Expansion.dll": {}
+        }
+      },
+      "ZeraSystems.CodeNanite.Schema/1.4.3": {
+        "type": "package",
+        "dependencies": {
+          "Pluralize.NET": "1.0.2",
+          "ZeraSystems.CodeStencil.Contracts": "1.3.0"
+        },
+        "compile": {
+          "lib/net48/ZeraSystems.CodeNanite.Schema.dll": {}
+        },
+        "runtime": {
+          "lib/net48/ZeraSystems.CodeNanite.Schema.dll": {}
+        }
+      },
+      "ZeraSystems.CodeStencil.Contracts/1.4.5": {
+        "type": "package",
+        "dependencies": {
+          "System.ComponentModel.Annotations": "5.0.0"
+        },
+        "compile": {
+          "lib/net48/ZeraSystems.CodeStencil.Contracts.dll": {}
+        },
+        "runtime": {
+          "lib/net48/ZeraSystems.CodeStencil.Contracts.dll": {}
+        }
+      }
+    },
+    ".NETFramework,Version=v4.8/win-x86": {
+      "Pluralize.NET/1.0.2": {
+        "type": "package",
+        "compile": {
+          "lib/net46/Pluralize.NET.dll": {}
+        },
+        "runtime": {
+          "lib/net46/Pluralize.NET.dll": {}
+        }
+      },
+      "System.ComponentModel.Annotations/5.0.0": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "System.ComponentModel.DataAnnotations",
+          "mscorlib"
+        ],
+        "compile": {
+          "ref/net461/System.ComponentModel.Annotations.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net461/System.ComponentModel.Annotations.dll": {}
+        }
+      },
+      "ZeraSystems.CodeNanite.Cshtml/1.4.3": {
+        "type": "package",
+        "dependencies": {
+          "ZeraSystems.CodeNanite.Expansion": "1.4.0",
+          "ZeraSystems.CodeStencil.Contracts": "1.3.0"
+        },
+        "compile": {
+          "lib/net48/ZeraSystems.CodeNanite.Cshtml.dll": {}
+        },
+        "runtime": {
+          "lib/net48/ZeraSystems.CodeNanite.Cshtml.dll": {}
+        }
+      },
+      "ZeraSystems.CodeNanite.Expansion/1.4.3": {
+        "type": "package",
+        "dependencies": {
+          "Pluralize.NET": "1.0.2",
+          "ZeraSystems.CodeStencil.Contracts": "1.3.0"
+        },
+        "compile": {
+          "lib/net48/ZeraSystems.CodeNanite.Expansion.dll": {}
+        },
+        "runtime": {
+          "lib/net48/ZeraSystems.CodeNanite.Expansion.dll": {}
+        }
+      },
+      "ZeraSystems.CodeNanite.Schema/1.4.3": {
+        "type": "package",
+        "dependencies": {
+          "Pluralize.NET": "1.0.2",
+          "ZeraSystems.CodeStencil.Contracts": "1.3.0"
+        },
+        "compile": {
+          "lib/net48/ZeraSystems.CodeNanite.Schema.dll": {}
+        },
+        "runtime": {
+          "lib/net48/ZeraSystems.CodeNanite.Schema.dll": {}
+        }
+      },
+      "ZeraSystems.CodeStencil.Contracts/1.4.5": {
+        "type": "package",
+        "dependencies": {
+          "System.ComponentModel.Annotations": "5.0.0"
+        },
+        "compile": {
+          "lib/net48/ZeraSystems.CodeStencil.Contracts.dll": {}
+        },
+        "runtime": {
+          "lib/net48/ZeraSystems.CodeStencil.Contracts.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Pluralize.NET/1.0.2": {
+      "sha512": "kr/sOAem5NPH7Ft0tNiaQOO7f/W7ExcLRERpgvg5BlVZimQ/d/MCxhnwnk+WL4dy5Bj/KjToHUl1azYYDfqzpA==",
+      "type": "package",
+      "path": "pluralize.net/1.0.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net40/Pluralize.NET.dll",
+        "lib/net451/Pluralize.NET.dll",
+        "lib/net46/Pluralize.NET.dll",
+        "lib/netstandard1.1/Pluralize.NET.dll",
+        "lib/netstandard2.0/Pluralize.NET.dll",
+        "pluralize.net.1.0.2.nupkg.sha512",
+        "pluralize.net.nuspec"
+      ]
+    },
+    "System.ComponentModel.Annotations/5.0.0": {
+      "sha512": "dMkqfy2el8A8/I76n2Hi1oBFEbG1SfxD2l5nhwXV3XjlnOmwxJlQbYpJH4W51odnU9sARCSAgv7S3CyAFMkpYg==",
+      "type": "package",
+      "path": "system.componentmodel.annotations/5.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/MonoAndroid10/_._",
+        "lib/MonoTouch10/_._",
+        "lib/net45/_._",
+        "lib/net461/System.ComponentModel.Annotations.dll",
+        "lib/netcore50/System.ComponentModel.Annotations.dll",
+        "lib/netstandard1.4/System.ComponentModel.Annotations.dll",
+        "lib/netstandard2.0/System.ComponentModel.Annotations.dll",
+        "lib/netstandard2.1/System.ComponentModel.Annotations.dll",
+        "lib/netstandard2.1/System.ComponentModel.Annotations.xml",
+        "lib/portable-net45+win8/_._",
+        "lib/win8/_._",
+        "lib/xamarinios10/_._",
+        "lib/xamarinmac20/_._",
+        "lib/xamarintvos10/_._",
+        "lib/xamarinwatchos10/_._",
+        "ref/MonoAndroid10/_._",
+        "ref/MonoTouch10/_._",
+        "ref/net45/_._",
+        "ref/net461/System.ComponentModel.Annotations.dll",
+        "ref/net461/System.ComponentModel.Annotations.xml",
+        "ref/netcore50/System.ComponentModel.Annotations.dll",
+        "ref/netcore50/System.ComponentModel.Annotations.xml",
+        "ref/netcore50/de/System.ComponentModel.Annotations.xml",
+        "ref/netcore50/es/System.ComponentModel.Annotations.xml",
+        "ref/netcore50/fr/System.ComponentModel.Annotations.xml",
+        "ref/netcore50/it/System.ComponentModel.Annotations.xml",
+        "ref/netcore50/ja/System.ComponentModel.Annotations.xml",
+        "ref/netcore50/ko/System.ComponentModel.Annotations.xml",
+        "ref/netcore50/ru/System.ComponentModel.Annotations.xml",
+        "ref/netcore50/zh-hans/System.ComponentModel.Annotations.xml",
+        "ref/netcore50/zh-hant/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.1/System.ComponentModel.Annotations.dll",
+        "ref/netstandard1.1/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.1/de/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.1/es/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.1/fr/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.1/it/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.1/ja/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.1/ko/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.1/ru/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.1/zh-hans/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.1/zh-hant/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.3/System.ComponentModel.Annotations.dll",
+        "ref/netstandard1.3/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.3/de/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.3/es/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.3/fr/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.3/it/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.3/ja/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.3/ko/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.3/ru/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.3/zh-hans/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.3/zh-hant/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.4/System.ComponentModel.Annotations.dll",
+        "ref/netstandard1.4/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.4/de/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.4/es/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.4/fr/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.4/it/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.4/ja/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.4/ko/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.4/ru/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.4/zh-hans/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.4/zh-hant/System.ComponentModel.Annotations.xml",
+        "ref/netstandard2.0/System.ComponentModel.Annotations.dll",
+        "ref/netstandard2.0/System.ComponentModel.Annotations.xml",
+        "ref/netstandard2.1/System.ComponentModel.Annotations.dll",
+        "ref/netstandard2.1/System.ComponentModel.Annotations.xml",
+        "ref/portable-net45+win8/_._",
+        "ref/win8/_._",
+        "ref/xamarinios10/_._",
+        "ref/xamarinmac20/_._",
+        "ref/xamarintvos10/_._",
+        "ref/xamarinwatchos10/_._",
+        "system.componentmodel.annotations.5.0.0.nupkg.sha512",
+        "system.componentmodel.annotations.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
+    "ZeraSystems.CodeNanite.Cshtml/1.4.3": {
+      "sha512": "BBvlvcgIZKYI4EZSsrKmNJ20I4weBgDgB0ohRuEItu0B0TlyMxa11aahcvCLXJ+b2qJ1CIPKwlAoOSTYG3vuKw==",
+      "type": "package",
+      "path": "zerasystems.codenanite.cshtml/1.4.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "content/logo64x64.png",
+        "lib/net48/ZeraSystems.CodeNanite.Cshtml.dll",
+        "logo64x64.png",
+        "zerasystems.codenanite.cshtml.1.4.3.nupkg.sha512",
+        "zerasystems.codenanite.cshtml.nuspec"
+      ]
+    },
+    "ZeraSystems.CodeNanite.Expansion/1.4.3": {
+      "sha512": "7ifhFZoWMQGwjvVtjh5egLM9XaEBbXusWvYnsIvx0s6aBCTOHfWDHNt6waqAAKUz1U3aDA2zd0GkrUte9X1HMA==",
+      "type": "package",
+      "path": "zerasystems.codenanite.expansion/1.4.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "content/logo64x64.png",
+        "lib/net48/ZeraSystems.CodeNanite.Expansion.dll",
+        "logo64x64.png",
+        "zerasystems.codenanite.expansion.1.4.3.nupkg.sha512",
+        "zerasystems.codenanite.expansion.nuspec"
+      ]
+    },
+    "ZeraSystems.CodeNanite.Schema/1.4.3": {
+      "sha512": "4K5a8i8KGWDWeh+bspoPk6iC7Sj8qNz1MWVzeUxtGaKNbTbjImcrhNrFqZDundc0sCUTEJR97Z8YY7StWbjYtQ==",
+      "type": "package",
+      "path": "zerasystems.codenanite.schema/1.4.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "content/Notes.txt",
+        "content/logo64x64.png",
+        "lib/net48/ZeraSystems.CodeNanite.Schema.dll",
+        "logo64x64.png",
+        "zerasystems.codenanite.schema.1.4.3.nupkg.sha512",
+        "zerasystems.codenanite.schema.nuspec"
+      ]
+    },
+    "ZeraSystems.CodeStencil.Contracts/1.4.5": {
+      "sha512": "MI1Ho98uuBeYgskp54dJhrFFHc9y90amP0D39WND73aWnsc2tjiZnfY2CEs3CtwSnz9DVK+aqZnuQKFA8Zr//w==",
+      "type": "package",
+      "path": "zerasystems.codestencil.contracts/1.4.5",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "content/logo64x64.png",
+        "lib/net48/ZeraSystems.CodeStencil.Contracts.dll",
+        "logo64x64.png",
+        "zerasystems.codestencil.contracts.1.4.5.nupkg.sha512",
+        "zerasystems.codestencil.contracts.nuspec"
+      ]
+    }
+  },
+  "projectFileDependencyGroups": {
+    ".NETFramework,Version=v4.8": [
+      "ZeraSystems.CodeNanite.Cshtml >= 1.4.3",
+      "ZeraSystems.CodeNanite.Expansion >= 1.4.3",
+      "ZeraSystems.CodeNanite.Schema >= 1.4.3",
+      "ZeraSystems.CodeStencil.Contracts >= 1.4.5"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\admin\\.nuget\\packages\\": {},
+    "C:\\Program Files\\DevExpress 22.2\\Components\\Offline Packages": {},
+    "C:\\Program Files\\DevExpress 23.1\\Components\\Offline Packages": {},
+    "C:\\Program Files\\DevExpress 23.2\\Components\\Offline Packages": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "C:\\projects-desktop\\codestencil\\custom-stencils\\stencils-zerasystems\\DevExBlazorWebApp\\src\\DevExBlazorWebApp\\DevExBlazorWebApp.csproj",
+      "projectName": "ZeraSystems.DevExBlazorWebApp",
+      "projectPath": "C:\\projects-desktop\\codestencil\\custom-stencils\\stencils-zerasystems\\DevExBlazorWebApp\\src\\DevExBlazorWebApp\\DevExBlazorWebApp.csproj",
+      "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
+      "outputPath": "C:\\projects-desktop\\codestencil\\custom-stencils\\stencils-zerasystems\\DevExBlazorWebApp\\src\\DevExBlazorWebApp\\obj\\",
+      "projectStyle": "PackageReference",
+      "skipContentFileWrite": true,
+      "fallbackFolders": [
+        "C:\\Program Files\\DevExpress 22.2\\Components\\Offline Packages",
+        "C:\\Program Files\\DevExpress 23.1\\Components\\Offline Packages",
+        "C:\\Program Files\\DevExpress 23.2\\Components\\Offline Packages",
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
+      "configFilePaths": [
+        "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 22.2.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 23.1.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 23.2.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net48"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\DevExpress 22.2\\Components\\System\\Components\\Packages": {},
+        "C:\\Program Files\\DevExpress 23.1\\Components\\System\\Components\\Packages": {},
+        "C:\\Program Files\\DevExpress 23.2\\Components\\System\\Components\\Packages": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net48": {
+          "projectReferences": {}
+        }
+      }
+    },
+    "frameworks": {
+      "net48": {
+        "dependencies": {
+          "ZeraSystems.CodeNanite.Cshtml": {
+            "target": "Package",
+            "version": "[1.4.3, )"
+          },
+          "ZeraSystems.CodeNanite.Expansion": {
+            "target": "Package",
+            "version": "[1.4.3, )"
+          },
+          "ZeraSystems.CodeNanite.Schema": {
+            "target": "Package",
+            "version": "[1.4.3, )"
+          },
+          "ZeraSystems.CodeStencil.Contracts": {
+            "target": "Package",
+            "version": "[1.4.5, )"
+          }
+        }
+      }
+    },
+    "runtimes": {
+      "win": {
+        "#import": []
+      },
+      "win-arm64": {
+        "#import": []
+      },
+      "win-x64": {
+        "#import": []
+      },
+      "win-x86": {
+        "#import": []
+      }
+    }
+  }
+}

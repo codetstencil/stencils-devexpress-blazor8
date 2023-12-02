@@ -1,0 +1,85 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\projects-desktop\\codestencil\\custom-stencils\\stencils-zerasystems\\DevExBlazorWebApp\\src\\DevExBlazorWebApp\\DevExBlazorWebApp.csproj": {}
+  },
+  "projects": {
+    "C:\\projects-desktop\\codestencil\\custom-stencils\\stencils-zerasystems\\DevExBlazorWebApp\\src\\DevExBlazorWebApp\\DevExBlazorWebApp.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\projects-desktop\\codestencil\\custom-stencils\\stencils-zerasystems\\DevExBlazorWebApp\\src\\DevExBlazorWebApp\\DevExBlazorWebApp.csproj",
+        "projectName": "ZeraSystems.DevExBlazorWebApp",
+        "projectPath": "C:\\projects-desktop\\codestencil\\custom-stencils\\stencils-zerasystems\\DevExBlazorWebApp\\src\\DevExBlazorWebApp\\DevExBlazorWebApp.csproj",
+        "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
+        "outputPath": "C:\\projects-desktop\\codestencil\\custom-stencils\\stencils-zerasystems\\DevExBlazorWebApp\\src\\DevExBlazorWebApp\\obj\\",
+        "projectStyle": "PackageReference",
+        "skipContentFileWrite": true,
+        "fallbackFolders": [
+          "C:\\Program Files\\DevExpress 22.2\\Components\\Offline Packages",
+          "C:\\Program Files\\DevExpress 23.1\\Components\\Offline Packages",
+          "C:\\Program Files\\DevExpress 23.2\\Components\\Offline Packages",
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 22.2.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 23.1.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 23.2.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net48"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\DevExpress 22.2\\Components\\System\\Components\\Packages": {},
+          "C:\\Program Files\\DevExpress 23.1\\Components\\System\\Components\\Packages": {},
+          "C:\\Program Files\\DevExpress 23.2\\Components\\System\\Components\\Packages": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net48": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "net48": {
+          "dependencies": {
+            "ZeraSystems.CodeNanite.Cshtml": {
+              "target": "Package",
+              "version": "[1.4.3, )"
+            },
+            "ZeraSystems.CodeNanite.Expansion": {
+              "target": "Package",
+              "version": "[1.4.3, )"
+            },
+            "ZeraSystems.CodeNanite.Schema": {
+              "target": "Package",
+              "version": "[1.4.3, )"
+            },
+            "ZeraSystems.CodeStencil.Contracts": {
+              "target": "Package",
+              "version": "[1.4.5, )"
+            }
+          }
+        }
+      },
+      "runtimes": {
+        "win": {
+          "#import": []
+        },
+        "win-arm64": {
+          "#import": []
+        },
+        "win-x64": {
+          "#import": []
+        },
+        "win-x86": {
+          "#import": []
+        }
+      }
+    }
+  }
+}

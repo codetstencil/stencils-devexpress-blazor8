@@ -1,0 +1,7 @@
+C:\projects-desktop\codestencil\custom-stencils\stencils-zerasystems\DevExBlazorWebApp\src\DevExBlazorWebApp\obj\Debug\DevExBlazorWebApp.csproj.AssemblyReference.cache
+C:\projects-desktop\codestencil\custom-stencils\stencils-zerasystems\DevExBlazorWebApp\src\DevExBlazorWebApp\obj\Debug\DevExBlazorWebApp.csproj.CoreCompileInputs.cache
+C:\projects-desktop\codestencil\custom-stencils\stencils-zerasystems\DevExBlazorWebApp\src\DevExBlazorWebApp\obj\Debug\DevExBlazorWebApp.csproj.CopyComplete
+C:\projects-desktop\codestencil\custom-stencils\stencils-zerasystems\DevExBlazorWebApp\build\ZeraSystems.DevExBlazorWebApp.dll
+C:\projects-desktop\codestencil\custom-stencils\stencils-zerasystems\DevExBlazorWebApp\build\ZeraSystems.DevExBlazorWebApp.pdb
+C:\projects-desktop\codestencil\custom-stencils\stencils-zerasystems\DevExBlazorWebApp\src\DevExBlazorWebApp\obj\Debug\ZeraSystems.DevExBlazorWebApp.dll
+C:\projects-desktop\codestencil\custom-stencils\stencils-zerasystems\DevExBlazorWebApp\src\DevExBlazorWebApp\obj\Debug\ZeraSystems.DevExBlazorWebApp.pdb

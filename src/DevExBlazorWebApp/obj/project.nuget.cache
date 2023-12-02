@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "m77r0fEFbfEEXWZ3T9jyITXLnOb7gNLIaTvKTaUvferqijTe8uGpEQboka7LJ6PabniTcF+qERWwlceWgGRCMw==",
+  "success": true,
+  "projectFilePath": "C:\\projects-desktop\\codestencil\\custom-stencils\\stencils-zerasystems\\DevExBlazorWebApp\\src\\DevExBlazorWebApp\\DevExBlazorWebApp.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\admin\\.nuget\\packages\\pluralize.net\\1.0.2\\pluralize.net.1.0.2.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\system.componentmodel.annotations\\5.0.0\\system.componentmodel.annotations.5.0.0.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\zerasystems.codenanite.cshtml\\1.4.3\\zerasystems.codenanite.cshtml.1.4.3.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\zerasystems.codenanite.expansion\\1.4.3\\zerasystems.codenanite.expansion.1.4.3.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\zerasystems.codenanite.schema\\1.4.3\\zerasystems.codenanite.schema.1.4.3.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\zerasystems.codestencil.contracts\\1.4.5\\zerasystems.codestencil.contracts.1.4.5.nupkg.sha512"
+  ],
+  "logs": []
+}
