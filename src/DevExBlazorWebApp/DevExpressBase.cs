@@ -1,7 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using ZeraSystems.CodeNanite.Expansion;
 using ZeraSystems.CodeStencil.Contracts;
-//using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace ZeraSystems.DevExBlazorWebApp
 {
@@ -14,7 +14,6 @@ namespace ZeraSystems.DevExBlazorWebApp
                        SearchEnabled() + Visible() +
                        " />";
 
-            //text = text.AddTag("DxGridDataColumn", 0);
             return text.Trim();
 
             #region Local Functions
@@ -22,39 +21,39 @@ namespace ZeraSystems.DevExBlazorWebApp
             string FieldName(string model, string column) =>
                 "FieldName=" + ("@nameof(" + model + column + ")").AddQuotes();
 
-            string AllowSort() =>
-                item.IsSortColumn ? " AllowSort = " + TrueOrFalse(item.IsSortColumn) : "";
+            string AllowSort() => !item.IsSortColumn ? " AllowSort = " + "false".AddQuotes() : "";
+            string SearchEnabled() => !item.IsSearchColumn ? " SearchEnabled = " + "false".AddQuotes() : "";
+            string Visible() => item.IsNotVisible ? " Visible = " + TrueOrFalse(!item.IsNotVisible) : "";
 
-            string SearchEnabled() =>
-                item.IsSearchColumn ? " SearchEnabled = " + TrueOrFalse(item.IsSearchColumn) : "";
-
-            string Visible() =>
-                item.IsNotVisible ? " Visible = " + TrueOrFalse(!item.IsNotVisible) : "";
-
-            //string TrueOrFalse(bool value) => value ? "true".AddQuotes() : "false".AddQuotes();
-
-            string CellDisplayTemplate()
+            string DisplayFormat()
             {
-                if (item.IsForeignKey)
+                var dataType = item.ColumnType;
+                var format = string.Empty;
+                switch (dataType)
                 {
-
+                    case "DateTime":
+                        format = "d";
+                        break;
                 }
 
-                return "";
+                return "DisplayFormat =" + format.AddQuotes();
+                //https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridDataColumn.DisplayFormat?v=22.1
             }
 
             //See: https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridDataColumn._members
-            #endregion
 
+            #endregion Local Functions
         }
 
         public string DxFormLayoutItem(ISchemaItem item)
         {
-            var text = Caption(item.ColumnLabel) + ColSpanMd();
-
-            //text = text.AddTag("DxFormLayoutItem", 4);
+            var colSpanMd = GetExpansionString("COLSPAN_MD");
+            var span = 6;
+            if (!colSpanMd.IsBlank())
+                span = Convert.ToInt32(colSpanMd);
+            var text = Caption(item.ColumnLabel) + ColSpanMd(span);
             if (!item.IsForeignKey)
-                text = Indent(8) + "<DxFormLayoutItem" + text + "<DxTextBox" + BindColumn(item) + " />" + "</DxFormLayoutItem>";
+                text = Indent(8) + "<DxFormLayoutItem" + text + BindColumn(item) + "</DxFormLayoutItem>";
             else
             {
                 text = Indent(8) + "<DxFormLayoutItem" + text.AddCarriage() +
@@ -63,7 +62,6 @@ namespace ZeraSystems.DevExBlazorWebApp
             }
 
             return text;
-
 
             string GetCombo()
             {
@@ -88,7 +86,6 @@ namespace ZeraSystems.DevExBlazorWebApp
                 return combo;
             }
             //See: https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxFormLayoutItem
-            GetRelatedTable(item);
         }
 
         protected string GetRelatedTable(ISchemaItem item)
@@ -97,32 +94,32 @@ namespace ZeraSystems.DevExBlazorWebApp
                 .Select(x => x.TableName).ToList().Contains(item.RelatedTable);
             return tableExists ? item.RelatedTable : item.TableName;
             //we will assume it is a self-referencing table
-
         }
 
-        /*
-            <DxComboBox CustomData="@LoadEmployees" TData="EmployeeModel" TValue="int"
-               TextFieldName="@nameof(EmployeeModel.FullName)"
-               ValueFieldName="@nameof(EmployeeModel.EmployeeId)"
-               @bind-Value="@item.SupportRepId">
-           </DxComboBox>
-        */
-
-
-
         private string Caption(string item) => " Caption=" + (item).AddQuotes();
+
         private string BindColumn(ISchemaItem item)
         {
             var column = ("item." + item.ColumnName).AddQuotes();
-            if (item.ColumnType == "DateTime") 
-                return " @bind-Date=" + column;
-            return " @bind-Text=" + column;
+            var bindingAttribute = "@bind-Text";
+            var result = $"<DxTextBox {bindingAttribute} = {column} />";
+            switch (item.ColumnType)
+            {
+                case "DateTime":
+                    bindingAttribute = "@bind-Date";
+                    result = $"<DxDateEdit {bindingAttribute} = {column} />";
+                    break;
+
+                case "bool":
+                    bindingAttribute = "@bind-Checked";
+                    result = $"<DxCheckBox {bindingAttribute} = {column} />";
+                    break;
+            }
+            return result;
         }
 
-        private string ColSpanMd(int span = 6) => " ColSpanMd=" + (span).ToString().AddQuotes() + ">";
+        private string ColSpanMd(int span) => " ColSpanMd=" + (span).ToString().AddQuotes() + ">";
+
         private string TrueOrFalse(bool value) => value ? "true".AddQuotes() : "false".AddQuotes();
     }
-
-
 }
-

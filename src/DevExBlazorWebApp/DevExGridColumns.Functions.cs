@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using ZeraSystems.CodeNanite.Expansion;
 
 namespace ZeraSystems.DevExBlazorWebApp
@@ -6,6 +8,7 @@ namespace ZeraSystems.DevExBlazorWebApp
     public partial class DevExGridColumns : DevExpressBase
     {
         private string _model;
+
         private void MainFunction()
         {
             _model = Input + "Model";
@@ -22,10 +25,9 @@ namespace ZeraSystems.DevExBlazorWebApp
             AppendText("</BrowseAndEditCtrl>");
             AppendText("");
             AppendText(dxCode);
-            //<BrowseAndEditCtrl TKey="int" TModel="CustomerModel">
         }
 
-        string GetDxGridString()
+        private string GetDxGridString()
         {
             var columns = GetColumns(Input);
             if (!columns.Any()) return "";
@@ -37,13 +39,9 @@ namespace ZeraSystems.DevExBlazorWebApp
             }
             AppendText(Indent(4) + "</GridColumns>");
             return ReturnResult(ExpandedText.ToString());
-
-            //var result = "<GridColumns>".AddCarriage() +
-
-            //return (ExpandedText.ToString()).AddTagWithCr("GridColumns", "", 4);
-            //return ReturnResult((ExpandedText.ToString()).AddTagWithCr("GridColumns", "").Trim());
         }
-        string GetDxEditFormLayoutString()
+
+        private string GetDxEditFormLayoutString()
         {
             var columns = GetColumns(Input)
                 .Where(x => x.IsCalculatedColumn is false).ToList();
@@ -62,31 +60,31 @@ namespace ZeraSystems.DevExBlazorWebApp
                 AppendText(DxFormLayoutItem(column));
             }
             AppendText(Indent(4) + "</EditFormLayoutItems>");
-
-            //var text = (ExpandedText.ToString()).HtmlTag("EditFormLayoutItems", "Context", "ctx", 4);
-            //return text;
             return ReturnResult();
         }
-        string GetCode()
+
+        private string GetCode()
         {
             var lookups = GetLookups();
             AppendText("@code{");
             AppendText(lookups);
             AppendText("}");
-            //AppendText("");
             return ReturnResult();
         }
 
-        string GetLookups()
+        private string GetLookups()
         {
-            var lookups = GetForeignKeysInTable(Input);
+            var lookups = GetForeignKeysInTable(Input).ToList();
+            var createdLookups = new List<string>();
             foreach (var lookup in lookups)
             {
+                if (createdLookups.Contains(lookup.RelatedTable)) continue;
                 var table = GetRelatedTable(lookup); //  lookup.RelatedTable;
                 AppendText(Indent(4) + "protected Task<LoadResult> Load" + table.Pluralize() + "(DataSourceLoadOptionsBase options, CancellationToken cancellationToken)");
                 AppendText(Indent(4) + "{");
                 AppendText(Indent(8) + "return loader.GetLookupDataSource<int, " + table + "Model" + ">(options, cancellationToken);");
                 AppendText(Indent(4) + "}");
+                createdLookups.Add(lookup.RelatedTable);
             }
             return ReturnResult();
         }
@@ -102,5 +100,3 @@ namespace ZeraSystems.DevExBlazorWebApp
         }
     }
 }
-
-

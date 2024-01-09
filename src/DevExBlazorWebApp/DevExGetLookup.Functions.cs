@@ -11,7 +11,7 @@ namespace ZeraSystems.DevExBlazorWebApp
             AppendText(dxCode);
         }
 
-        string GetCode()
+        private string GetCode()
         {
             AppendText();
             AppendText("@code{");
@@ -20,7 +20,8 @@ namespace ZeraSystems.DevExBlazorWebApp
             AppendText("");
             return ExpandedText.ToString();
         }
-        string GetLookups()
+
+        private string GetLookups()
         {
             var lookups = GetForeignKeysInTable(Input);
             foreach (var lookup in lookups)

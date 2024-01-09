@@ -54,6 +54,10 @@
     <Compile Include="DevExGridColumns.Functions.cs">
       <DependentUpon>DevExGridColumns.cs</DependentUpon>
     </Compile>
+    <Compile Include="DevExInjectRelated.cs" />
+    <Compile Include="DevExInjectRelated.Functions.cs">
+      <DependentUpon>DevExInjectRelated.cs</DependentUpon>
+    </Compile>
     <Compile Include="DevExRazorForm.cs" />
     <Compile Include="DevExpressBase.cs" />
     <Compile Include="DevExRazorForm.Functions.cs">
