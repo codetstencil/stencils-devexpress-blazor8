@@ -1,22 +1,37 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using ZeraSystems.CodeNanite.Expansion;
+using ZeraSystems.CodeStencil.Contracts;
 
 namespace ZeraSystems.DevExBlazorWebApp
 {
-    public partial class DevExGridColumns : DevExpressBase
+    public partial class DevExGridColumns
     {
         private string _model;
+        private List<ISchemaItem> _lookups;
+        private List<ISchemaItem> _editColumns;
+        private List<ISchemaItem> _gridColumns;
 
+        private int _colSpanMd = 12;
         private void MainFunction()
         {
             _model = Input + "Model";
+            _lookups = GetForeignKeysInTable(Input).ToList();
+            _gridColumns = GetColumns(Input);
+            _editColumns = GetColumns(Input)
+                .Where(x => x.IsCalculatedColumn is false).ToList();
+
+            var colSpanMd = GetExpansionString("COLSPAN_MD");
+            if (!colSpanMd.IsBlank())
+                _colSpanMd = Convert.ToInt32(colSpanMd);
+
             AppendText();
 
             var dxGrid = GetDxGridString();
-            var dxFormLayout = GetDxEditFormLayoutString();
-            var dxCode = GetCode();
+            //var dxFormLayout = GetDxEditFormLayoutString();
+            var dxFormLayout = GetEditFormLayoutItem();
+            var dxCode = GetCodeBehind();
 
             AppendText();
             AppendText("<BrowseAndEditCtrl TKey=" + "int".AddQuotes() + " TModel=" + _model.AddQuotes() + ">");
@@ -29,60 +44,137 @@ namespace ZeraSystems.DevExBlazorWebApp
 
         private string GetDxGridString()
         {
-            var columns = GetColumns(Input);
-            if (!columns.Any()) return "";
 
-            AppendText(Indent(4) + "<GridColumns>");
-            foreach (var column in columns)
+            if (!_gridColumns.Any()) return "";
+            var gridString = Indent(4) + "<GridColumns>".AddCarriage();
+            foreach (var column in _gridColumns)
             {
-                AppendText(Indent(8) + DxGridDataColumn(column));
+                gridString += DxGridDataColumn(column).AddCarriage();
             }
-            AppendText(Indent(4) + "</GridColumns>");
-            return ReturnResult(ExpandedText.ToString());
+            gridString += Indent(4) + "</GridColumns>".AddCarriage();
+            return ReturnResult(gridString);
         }
 
-        private string GetDxEditFormLayoutString()
+
+        public string DxGridDataColumn(ISchemaItem item)
         {
-            var columns = GetColumns(Input)
-                .Where(x => x.IsCalculatedColumn is false).ToList();
-
-            if (!columns.Any()) return "";
-
-            var text = Indent(4) + "@{".AddCarriage() +
-                       Indent(12) + "var item = (" + _model + ")ctx.EditModel;".AddCarriage() +
-                       Indent(8) + "}";
-
-            AppendText(Indent(4) + "<EditFormLayoutItems Context=" + "ctx".AddQuotes() + ">");
-            AppendText(Indent(4) + text);
-
-            foreach (var column in columns)
+            var text = "<DxGridDataColumn " +
+                       FieldName(item.TableName + "Model.", item.ColumnName) + Caption(item.ColumnLabel) + AllowSort() +
+                       SearchEnabled() + Visible();
+            if (!item.IsForeignKey)
             {
-                AppendText(DxFormLayoutItem(column));
+                text += " />";
+                return text.Trim();
             }
+
+            return EditSettingsString();
+
+
+            #region Local Functions
+            //string Caption(string label) => " Caption=" + (label).AddQuotes();
+
+            string FieldName(string model, string column) =>
+                "FieldName=" + ("@nameof(" + model + column + ")").AddQuotes();
+
+            string AllowSort() => !item.IsSortColumn ? " AllowSort = " + "false".AddQuotes() : "";
+            string SearchEnabled() => !item.IsSearchColumn ? " SearchEnabled = " + "false".AddQuotes() : "";
+            string Visible() => item.IsNotVisible ? " Visible = " + TrueOrFalse(!item.IsNotVisible) : "";
+
+            string DisplayFormat()
+            {
+                var dataType = item.ColumnType;
+                var format = string.Empty;
+                switch (dataType)
+                {
+                    case "DateTime":
+                        format = "d";
+                        break;
+                }
+
+                return "DisplayFormat =" + format.AddQuotes();
+                //https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridDataColumn.DisplayFormat?v=22.1
+            }
+
+
+            string EditSettingsString()
+            {
+                AppendText();
+                AppendText(Indent(12) + "<EditSettings>");
+                AppendText(Indent(16) + "<DxComboBoxSettings Data=@" + (item.RelatedTable.Pluralize() + ".data").AddQuotes());
+                AppendText(Indent(36) + "ValueFieldName=" + item.ColumnName.AddQuotes());
+                AppendText(Indent(36) + "TextFieldName=" + item.LookupDisplayColumn.AddQuotes());
+                AppendText(Indent(36) + "FilteringMode=" + "DataGridFilteringMode.Contains".AddQuotes());
+                AppendText(Indent(36) + "ClearButtonDisplayMode=" + "DataEditorClearButtonDisplayMode.Auto".AddQuotes());
+                AppendText(Indent(12) + "</EditSettings>");
+                return ReturnResult();
+            }
+
+            //See: https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridDataColumn._members
+
+            #endregion Local Functions
+
+
+        }
+
+        private string GetEditFormLayoutItem()
+        {
+            AppendText(Indent(4) + "<EditFormLayoutItems Context=" + "ctx".AddQuotes() + ">");
+            AppendText(Indent(8) + "@{");
+            AppendText(Indent(12) + "var item = (" + _model + ")ctx.EditModel;");
+            AppendText(Indent(8) + "}");
+            AppendText("");
+
+            foreach (var column in _editColumns)
+            {
+                AppendText(Indent(8) + "<DxFormLayoutItem Caption=" + column.ColumnLabel.AddQuotes() + " ColSpanMd=" + "12".AddQuotes() + ">");
+                AppendText(Indent(12) + "@ctx.GetEditor(nameof(item." + column.ColumnName + ")");
+                AppendText(Indent(8) + "</DxFormLayoutItem>");
+            }
+
             AppendText(Indent(4) + "</EditFormLayoutItems>");
             return ReturnResult();
+
         }
 
-        private string GetCode()
+
+        private string GetCodeBehind()
         {
-            var lookups = GetLookups();
+            var loaderMethods = CreateLoaderMethods();
             AppendText("@code{");
-            AppendText(lookups);
+            foreach (var lookup in _lookups)
+            {
+                AppendText(Indent(4) + "public LoadResult " + lookup.TableName.Pluralize() + " { get; set; } = new();");
+            }
+            AppendText("");
+            AppendText(Indent(4) + "readonly DataSourceLoadOptionsBase _options = new();");
+            AppendText(Indent(4) + "readonly CancellationToken _cancellationToken = new();");
+            AppendText(Indent(4) + "protected override async Task OnInitializedAsync() => await LoadData();");
+            AppendText("");
+            AppendText("async Task LoadData()");
+            AppendText("{");
+            foreach (var lookup in _lookups)
+            {
+                AppendText(Indent(8) + lookup.TableName.Pluralize() + " = await Load" + lookup.TableName.Pluralize() + "(_options, _cancellationToken);");
+            }
+            AppendText("}");
+            AppendText("");
+            AppendText(loaderMethods);
             AppendText("}");
             return ReturnResult();
         }
 
-        private string GetLookups()
+        private string CreateLoaderMethods()
         {
-            var lookups = GetForeignKeysInTable(Input).ToList();
+            //var lookups = GetForeignKeysInTable(Input).ToList();
             var createdLookups = new List<string>();
-            foreach (var lookup in lookups)
+            foreach (var lookup in _lookups)
             {
                 if (createdLookups.Contains(lookup.RelatedTable)) continue;
                 var table = GetRelatedTable(lookup); //  lookup.RelatedTable;
+                AppendText("");
                 AppendText(Indent(4) + "protected Task<LoadResult> Load" + table.Pluralize() + "(DataSourceLoadOptionsBase options, CancellationToken cancellationToken)");
                 AppendText(Indent(4) + "{");
-                AppendText(Indent(8) + "return loader.GetLookupDataSource<int, " + table + "Model" + ">(options, cancellationToken);");
+                AppendText(Indent(8) + "return Loader.GetLookupDataSource<int, " + table + "Model" + ">(options, cancellationToken);");
                 AppendText(Indent(4) + "}");
                 createdLookups.Add(lookup.RelatedTable);
             }

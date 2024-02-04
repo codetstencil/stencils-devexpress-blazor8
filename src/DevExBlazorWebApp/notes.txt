@@ -1,0 +1,13 @@
+﻿/DebugFile="C:\projects-desktop\codestencil\custom-stencils\stencils-devexpress\DevExBlazorWebApp\src\CodeStencil.Debug.xml"
+
+
+
+"C:\projects-desktop\codestencil\custom-stencils\stencils-devexpress\DevExBlazorWebApp\build\ZeraSystems.DevExBlazorWebApp.dll"
+
+<?xml version="1.0" encoding="utf-8"?>
+<CodeNaniteAssemblies>  
+  <AssemblyLoadPath>C:\projects-desktop\build\CodeStencil\code-nanites\release\ZeraSystems.CodeNanite.Expansion.dll</AssemblyLoadPath>  
+  <AssemblyLoadPath>C:\projects-desktop\build\CodeStencil\code-nanites\release\ZeraSystems.CodeNanite.Schema.dll</AssemblyLoadPath>  
+  <AssemblyLoadPath>C:\projects-desktop\build\CodeStencil\code-nanites\release\ZeraSystems.CodeNanite.Cshtml.dll</AssemblyLoadPath>    
+  <AssemblyLoadPath></AssemblyLoadPath>  
+</CodeNaniteAssemblies> 

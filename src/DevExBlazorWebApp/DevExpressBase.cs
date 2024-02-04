@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ZeraSystems.CodeNanite.Expansion;
 using ZeraSystems.CodeStencil.Contracts;
@@ -7,44 +8,6 @@ namespace ZeraSystems.DevExBlazorWebApp
 {
     public abstract class DevExpressBase : ExpansionBase
     {
-        public string DxGridDataColumn(ISchemaItem item)
-        {
-            var text = "<DxGridDataColumn " +
-                       FieldName(item.TableName + "Model.", item.ColumnName) + Caption(item.ColumnLabel) + AllowSort() +
-                       SearchEnabled() + Visible() +
-                       " />";
-
-            return text.Trim();
-
-            #region Local Functions
-
-            string FieldName(string model, string column) =>
-                "FieldName=" + ("@nameof(" + model + column + ")").AddQuotes();
-
-            string AllowSort() => !item.IsSortColumn ? " AllowSort = " + "false".AddQuotes() : "";
-            string SearchEnabled() => !item.IsSearchColumn ? " SearchEnabled = " + "false".AddQuotes() : "";
-            string Visible() => item.IsNotVisible ? " Visible = " + TrueOrFalse(!item.IsNotVisible) : "";
-
-            string DisplayFormat()
-            {
-                var dataType = item.ColumnType;
-                var format = string.Empty;
-                switch (dataType)
-                {
-                    case "DateTime":
-                        format = "d";
-                        break;
-                }
-
-                return "DisplayFormat =" + format.AddQuotes();
-                //https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridDataColumn.DisplayFormat?v=22.1
-            }
-
-            //See: https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridDataColumn._members
-
-            #endregion Local Functions
-        }
-
         public string DxFormLayoutItem(ISchemaItem item)
         {
             var colSpanMd = GetExpansionString("COLSPAN_MD");
@@ -96,30 +59,85 @@ namespace ZeraSystems.DevExBlazorWebApp
             //we will assume it is a self-referencing table
         }
 
-        private string Caption(string item) => " Caption=" + (item).AddQuotes();
+        public string Caption(string item) => " Caption=" + (item).AddQuotes();
 
         private string BindColumn(ISchemaItem item)
         {
+            var attributes = GetAttributes(item);
             var column = ("item." + item.ColumnName).AddQuotes();
             var bindingAttribute = "@bind-Text";
-            var result = $"<DxTextBox {bindingAttribute} = {column} />";
+
+            string result;
             switch (item.ColumnType)
             {
                 case "DateTime":
                     bindingAttribute = "@bind-Date";
-                    result = $"<DxDateEdit {bindingAttribute} = {column} />";
+                    result = $"<DxDateEdit {bindingAttribute} = {column} " + GetDateTimeMask() + "/>";
                     break;
-
                 case "bool":
                     bindingAttribute = "@bind-Checked";
                     result = $"<DxCheckBox {bindingAttribute} = {column} />";
                     break;
+                case "int":
+                    bindingAttribute = "@bind-Value";
+                    result = $"<DxSpinEdit {bindingAttribute} = {column} />";
+                    break;
+                case "decimal":
+                    bindingAttribute = "@bind-Value";
+                    result = $"<DxSpinEdit {bindingAttribute} = {column} " + GetDecimalMask() + "/>";
+                    break;
+                default:
+                    result = $"<DxTextBox {bindingAttribute} = {column} />";
+                    break;
             }
-            return result;
+
+            return GetDefaultMask(result);
+
+            string GetDecimalMask()
+            {
+                if (attributes.Contains("Currency"))
+                    return " Mask = " + "@NumericMask.Currency".AddQuotes();
+                return " Mask = " + "#,##0.00".AddQuotes();
+            }
+            string GetDateTimeMask()
+            {
+                return " Mask = " + "@DateTimeMask.ShortDate".AddQuotes();
+            }
+            string GetDefaultMask(string mask)
+            {
+                if (!item.MaskPattern.IsBlank())
+                    return " Mask = " + item.MaskPattern.AddQuotes();
+                return mask;
+            }
+
         }
 
         private string ColSpanMd(int span) => " ColSpanMd=" + (span).ToString().AddQuotes() + ">";
+        //private string ColSpanMd()
+        //{
+        //    var colSpanMd = GetExpansionString("COLSPAN_MD");
+        //    if (!colSpanMd.IsBlank())
+        //        _colSpanMd = Convert.ToInt32(colSpanMd);
 
-        private string TrueOrFalse(bool value) => value ? "true".AddQuotes() : "false".AddQuotes();
+
+        //    return " ColSpanMd=" + (_colSpanMd).ToString().AddQuotes() + ">";
+        //}
+
+        public string TrueOrFalse(bool value) => value ? "true".AddQuotes() : "false".AddQuotes();
+        List<string> GetAttributes(ISchemaItem item)
+        {
+            var input = item.ColumnAttribute;
+
+            // Split the string into lines
+            var lines = input.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            for (var i = 0; i < lines.Count; i++)
+            {
+                lines[i] = lines[i]
+                    .Replace("[DataType(DataType.", "")
+                    .Replace(")]", "");
+            }
+
+            return lines;
+        }
     }
 }
