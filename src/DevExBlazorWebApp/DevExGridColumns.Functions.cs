@@ -52,7 +52,8 @@ namespace ZeraSystems.DevExBlazorWebApp
                 gridString += DxGridDataColumn(column).AddCarriage();
             }
             gridString += Indent(4) + "</GridColumns>".AddCarriage();
-            return ReturnResult(gridString);
+            //return ReturnResult(gridString);
+            return gridString;
         }
 
 
@@ -63,8 +64,9 @@ namespace ZeraSystems.DevExBlazorWebApp
                        SearchEnabled() + Visible();
             if (!item.IsForeignKey)
             {
-                text += " />";
-                return text.Trim();
+                //text += " />";
+                //return text.Trim();
+                return Indent(8) + text + " />";
             }
 
             return EditSettingsString();
@@ -99,13 +101,17 @@ namespace ZeraSystems.DevExBlazorWebApp
             string EditSettingsString()
             {
                 AppendText();
+                AppendText(Indent(8) + "<DxGridDataColumn " +
+                            FieldName(item.TableName + "Model.", item.ColumnName) + Caption(item.ColumnLabel) + AllowSort() +
+                            SearchEnabled() + Visible() + ">");
                 AppendText(Indent(12) + "<EditSettings>");
-                AppendText(Indent(16) + "<DxComboBoxSettings Data=@" + (item.RelatedTable.Pluralize() + ".data").AddQuotes());
+                AppendText(Indent(16) + "<DxComboBoxSettings Data=" + ("@" + (item.RelatedTable.Pluralize() + ".data")).AddQuotes());
                 AppendText(Indent(36) + "ValueFieldName=" + item.ColumnName.AddQuotes());
                 AppendText(Indent(36) + "TextFieldName=" + item.LookupDisplayColumn.AddQuotes());
                 AppendText(Indent(36) + "FilteringMode=" + "DataGridFilteringMode.Contains".AddQuotes());
-                AppendText(Indent(36) + "ClearButtonDisplayMode=" + "DataEditorClearButtonDisplayMode.Auto".AddQuotes());
+                AppendText(Indent(36) + "ClearButtonDisplayMode=" + "DataEditorClearButtonDisplayMode.Auto".AddQuotes() + " />");
                 AppendText(Indent(12) + "</EditSettings>");
+                AppendText(Indent(8) + "</DxGridDataColumn>");
                 return ReturnResult();
             }
 
@@ -127,7 +133,7 @@ namespace ZeraSystems.DevExBlazorWebApp
             foreach (var column in _editColumns)
             {
                 AppendText(Indent(8) + "<DxFormLayoutItem Caption=" + column.ColumnLabel.AddQuotes() + " ColSpanMd=" + "12".AddQuotes() + ">");
-                AppendText(Indent(12) + "@ctx.GetEditor(nameof(item." + column.ColumnName + ")");
+                AppendText(Indent(12) + "@ctx.GetEditor(nameof(item." + column.ColumnName + "))");
                 AppendText(Indent(8) + "</DxFormLayoutItem>");
             }
 
@@ -143,20 +149,20 @@ namespace ZeraSystems.DevExBlazorWebApp
             AppendText("@code{");
             foreach (var lookup in _lookups)
             {
-                AppendText(Indent(4) + "public LoadResult " + lookup.TableName.Pluralize() + " { get; set; } = new();");
+                AppendText(Indent(4) + "public LoadResult " + lookup.RelatedTable.Pluralize() + " { get; set; } = new();");
             }
             AppendText("");
             AppendText(Indent(4) + "readonly DataSourceLoadOptionsBase _options = new();");
             AppendText(Indent(4) + "readonly CancellationToken _cancellationToken = new();");
             AppendText(Indent(4) + "protected override async Task OnInitializedAsync() => await LoadData();");
             AppendText("");
-            AppendText("async Task LoadData()");
-            AppendText("{");
+            AppendText(Indent(4) + "async Task LoadData()");
+            AppendText(Indent(4) + "{");
             foreach (var lookup in _lookups)
             {
-                AppendText(Indent(8) + lookup.TableName.Pluralize() + " = await Load" + lookup.TableName.Pluralize() + "(_options, _cancellationToken);");
+                AppendText(Indent(8) + lookup.RelatedTable.Pluralize() + " = await Load" + lookup.RelatedTable.Pluralize() + "(_options, _cancellationToken);");
             }
-            AppendText("}");
+            AppendText(Indent(4) + "}");
             AppendText("");
             AppendText(loaderMethods);
             AppendText("}");
@@ -172,10 +178,8 @@ namespace ZeraSystems.DevExBlazorWebApp
                 if (createdLookups.Contains(lookup.RelatedTable)) continue;
                 var table = GetRelatedTable(lookup); //  lookup.RelatedTable;
                 AppendText("");
-                AppendText(Indent(4) + "protected Task<LoadResult> Load" + table.Pluralize() + "(DataSourceLoadOptionsBase options, CancellationToken cancellationToken)");
-                AppendText(Indent(4) + "{");
-                AppendText(Indent(8) + "return Loader.GetLookupDataSource<int, " + table + "Model" + ">(options, cancellationToken);");
-                AppendText(Indent(4) + "}");
+                AppendText(Indent(4) + "protected Task<LoadResult> Load" + table.Pluralize() + "(DataSourceLoadOptionsBase options, CancellationToken cancellationToken) =>");
+                AppendText(Indent(8) + "Loader.GetLookupDataSource<int, " + table + "Model" + ">(options, cancellationToken);");
                 createdLookups.Add(lookup.RelatedTable);
             }
             return ReturnResult();
