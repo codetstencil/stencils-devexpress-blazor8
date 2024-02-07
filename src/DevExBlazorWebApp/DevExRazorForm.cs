@@ -26,14 +26,14 @@ namespace ZeraSystems.DevExBlazorWebApp
         "ZERA Systems Inc.",
         "DevExpress Razor Form",
         "Generates code for a DevExpress Razor Form",
-        "1.0",
+        "1.2",
         "DevExRazorForm",
         "ZeraSystems.DevExBlazorWebApp",
-        "20-12-2023",
+        "05-02-2024",
         "CS_DEVEX_RAZOR_FORM",
         "1",
         "",
-        "https://www.codestencil.com"
+        "https://help.codestencil.com/custom-stencils/devexpress-blazor-web-app"
     })]
     public partial class DevExRazorForm : ExpansionBase, ICodeStencilCodeNanite
     { 

@@ -25,14 +25,14 @@ namespace ZeraSystems.DevExBlazorWebApp
         "Zera Systems Inc.",
         "Returns a List of Tables",
         "Used to create the inject command for related tables to be used as lookup",
-        "1.0",
+        "1.2",
         "DevExInjectRelated",
         "ZeraSystems.DevExBlazorWebApp",
-        "04-01-2024",
+        "01-04-2024",
         "CS_DEVEX_INJECT_RELATED_TABLE",
         "1",
         "",
-        "https://help.codestencil.com/code-nanites/tablelist"
+        "https://help.codestencil.com/custom-stencils/devexpress-blazor-web-app"
     })]
     public partial class DevExInjectRelated : ExpansionBase, ICodeStencilCodeNanite
     {

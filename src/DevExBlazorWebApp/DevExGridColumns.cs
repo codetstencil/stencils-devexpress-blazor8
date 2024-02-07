@@ -24,14 +24,14 @@ namespace ZeraSystems.DevExBlazorWebApp
         "ZERA Systems Inc.",
         "DevExpress Grid Columns",
         "Generates code for DevExpress Grid Columns",
-        "1.0",
+        "1.2",
         "DevExGridColumns",
         "ZeraSystems.DevExBlazorWebApp",
-        "20-12-2023",
+        "05-02-2024",
         "CS_DEVEX_GRID_COLUMNS",
         "1",
         "",
-        "https://www.codestencil.com"
+        "https://help.codestencil.com/custom-stencils/devexpress-blazor-web-app"
     })]
     public partial class DevExGridColumns : DevExpressBase, ICodeStencilCodeNanite
     {

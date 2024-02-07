@@ -82,20 +82,20 @@ namespace ZeraSystems.DevExBlazorWebApp
             string SearchEnabled() => !item.IsSearchColumn ? " SearchEnabled = " + "false".AddQuotes() : "";
             string Visible() => item.IsNotVisible ? " Visible = " + TrueOrFalse(!item.IsNotVisible) : "";
 
-            string DisplayFormat()
-            {
-                var dataType = item.ColumnType;
-                var format = string.Empty;
-                switch (dataType)
-                {
-                    case "DateTime":
-                        format = "d";
-                        break;
-                }
+            //string DisplayFormat()
+            //{
+            //    var dataType = item.ColumnType;
+            //    var format = string.Empty;
+            //    switch (dataType)
+            //    {
+            //        case "DateTime":
+            //            format = "d";
+            //            break;
+            //    }
 
-                return "DisplayFormat =" + format.AddQuotes();
-                //https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridDataColumn.DisplayFormat?v=22.1
-            }
+            //    return "DisplayFormat =" + format.AddQuotes();
+            //    //https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridDataColumn.DisplayFormat?v=22.1
+            //}
 
 
             string EditSettingsString()

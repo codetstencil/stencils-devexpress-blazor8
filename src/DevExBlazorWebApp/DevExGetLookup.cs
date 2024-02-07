@@ -24,14 +24,14 @@ namespace ZeraSystems.DevExBlazorWebApp
         "ZERA Systems Inc.",
         "DevExpress Lookup Code",
         "Generates code for a DevExpress Lookup on a form",
-        "1.0",
+        "1.2",
         "DevExGetLookup",
         "ZeraSystems.DevExBlazorWebApp",
-        "20-12-2023",
+        "05-02-2024",
         "CS_DEVEX_GET_LOOKUP",
         "1",
         "",
-        "https://www.codestencil.com"
+        "https://help.codestencil.com/custom-stencils/devexpress-blazor-web-app"
     })]
     public partial class DevExGetLookup : DevExpressBase, ICodeStencilCodeNanite
     {
