@@ -12,16 +12,17 @@ namespace ZeraSystems.DevExBlazorWebApp
         private List<ISchemaItem> _lookups;
         private List<ISchemaItem> _editColumns;
         private List<ISchemaItem> _gridColumns;
+        private List<string> _tablesList;
 
         private int _colSpanMd = 12;
         private void MainFunction()
         {
             _model = Input + "Model";
-            _lookups = GetForeignKeysInTable(Input).ToList();
+            _lookups = GetForeignKeysInTable(Input).Distinct(new SchemaItemRelatedTableComparer()).ToList();
             _gridColumns = GetColumns(Input);
             _editColumns = GetColumns(Input)
                 .Where(x => x.IsCalculatedColumn is false).ToList();
-
+            _tablesList = GetTables().Select(x => x.TableName).ToList();
             var colSpanMd = GetExpansionString("COLSPAN_MD");
             if (!colSpanMd.IsBlank())
                 _colSpanMd = Convert.ToInt32(colSpanMd);
@@ -160,13 +161,22 @@ namespace ZeraSystems.DevExBlazorWebApp
             AppendText(Indent(4) + "{");
             foreach (var lookup in _lookups)
             {
-                AppendText(Indent(8) + lookup.RelatedTable.Pluralize() + " = await Load" + lookup.RelatedTable.Pluralize() + "(_options, _cancellationToken);");
+                //AppendText(Indent(8) + lookup.RelatedTable.Pluralize() + " = await Load" + lookup.RelatedTable.Pluralize() + "(_options, _cancellationToken);");
+                AppendText(Indent(8) + lookup.RelatedTable.Pluralize() + AwaitMethod(lookup) + "(_options, _cancellationToken);");
             }
             AppendText(Indent(4) + "}");
             AppendText("");
             AppendText(loaderMethods);
             AppendText("}");
             return ReturnResult();
+
+            string AwaitMethod(ISchemaItem lookupRow)
+            {
+                if (_tablesList.Contains(lookupRow.RelatedTable) || _tablesList.Contains(lookupRow.RelatedTable.Pluralize()))
+                    return " = await Load" + lookupRow.RelatedTable.Pluralize();
+                else
+                    return " = await Load" + lookupRow.TableName.Pluralize();
+            }
         }
 
         private string CreateLoaderMethods()
@@ -195,4 +205,30 @@ namespace ZeraSystems.DevExBlazorWebApp
             return result;
         }
     }
+
+    public class SchemaItemRelatedTableComparer : IEqualityComparer<ISchemaItem>
+    {
+        public bool Equals(ISchemaItem x, ISchemaItem y)
+        {
+            // Check whether the compared objects reference the same data.
+            if (ReferenceEquals(x, y)) return true;
+
+            // Check whether any of the compared objects is null.
+            if (ReferenceEquals(x, null) || ReferenceEquals(y, null))
+                return false;
+
+            // Check whether the ISchemaItem's RelatedTable properties are equal.
+            return x.RelatedTable == y.RelatedTable;
+        }
+
+        public int GetHashCode(ISchemaItem obj)
+        {
+            // Check whether the object is null.
+            if (ReferenceEquals(obj, null)) return 0;
+
+            // Get hash code for the RelatedTable field if it is not null.
+            return obj.RelatedTable == null ? 0 : obj.RelatedTable.GetHashCode();
+        }
+    }
+
 }
