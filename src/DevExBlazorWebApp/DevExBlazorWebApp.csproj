@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B4868346-253C-41ED-91C4-9B46A60C7ACA}</ProjectGuid>
+    <ProjectGuid>{CA9F5DFF-37BA-4C9A-8921-6664C27D03E2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ZeraSystems.DevExBlazorWebApp</RootNamespace>
@@ -84,6 +84,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy "$(TargetDir)*.dll"  "$(SolutionDir)..\$(ProjectName)\Assemblies"</PostBuildEvent>
+    <PostBuildEvent>copy "$(TargetDir)*.dll"  "$(TargetDir)..\$(ProjectName)\Assemblies"</PostBuildEvent>
   </PropertyGroup>
 </Project>
