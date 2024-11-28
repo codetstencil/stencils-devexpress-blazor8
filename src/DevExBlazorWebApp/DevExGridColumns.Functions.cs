@@ -106,7 +106,7 @@ namespace ZeraSystems.DevExBlazorWebApp
                             FieldName(item.TableName + "Model.", item.ColumnName) + Caption(item.ColumnLabel) + AllowSort() +
                             SearchEnabled() + Visible() + ">");
                 AppendText(Indent(12) + "<EditSettings>");
-                AppendText(Indent(16) + "<DxComboBoxSettings Data=" + ("@" + (item.RelatedTable.Pluralize() + ".data")).AddQuotes());
+                AppendText(Indent(16) + "<DxComboBoxSettings Data=" + ("@" + (GetLoadedResultName(item.RelatedTable) + ".data")).AddQuotes());
                 AppendText(Indent(36) + "ValueFieldName=" + item.ColumnName.AddQuotes());
                 AppendText(Indent(36) + "TextFieldName=" + item.LookupDisplayColumn.AddQuotes());
                 AppendText(Indent(36) + "FilteringMode=" + "DataGridFilteringMode.Contains".AddQuotes());
@@ -150,7 +150,7 @@ namespace ZeraSystems.DevExBlazorWebApp
             AppendText("@code{");
             foreach (var lookup in _lookups)
             {
-                AppendText(Indent(4) + "public LoadResult " + lookup.RelatedTable.Pluralize() + " { get; set; } = new();");
+                AppendText(Indent(4) + "public LoadResult " + GetLoadedResultName(lookup.RelatedTable) + " { get; set; } = new();");
             }
             AppendText("");
             AppendText(Indent(4) + "readonly DataSourceLoadOptionsBase _options = new();");
@@ -162,7 +162,7 @@ namespace ZeraSystems.DevExBlazorWebApp
             foreach (var lookup in _lookups)
             {
                 //AppendText(Indent(8) + lookup.RelatedTable.Pluralize() + " = await Load" + lookup.RelatedTable.Pluralize() + "(_options, _cancellationToken);");
-                AppendText(Indent(8) + lookup.RelatedTable.Pluralize() + AwaitMethod(lookup) + "(_options, _cancellationToken);");
+                AppendText(Indent(8) + GetLoadedResultName(lookup.RelatedTable) + AwaitMethod(lookup) + "(_options, _cancellationToken);");
             }
             AppendText(Indent(4) + "}");
             AppendText("");
@@ -203,6 +203,13 @@ namespace ZeraSystems.DevExBlazorWebApp
 
             ExpandedText.Clear();
             return result;
+        }
+
+
+        // can the extension method be used here?
+        public string GetLoadedResultName(string relatedTable)
+        {
+            return relatedTable.Pluralize() + "List";
         }
     }
 
