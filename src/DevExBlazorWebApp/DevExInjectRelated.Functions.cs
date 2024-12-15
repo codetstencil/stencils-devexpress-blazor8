@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 
 namespace ZeraSystems.DevExBlazorWebApp
 {
@@ -8,11 +7,10 @@ namespace ZeraSystems.DevExBlazorWebApp
         private void MainFunction()
         {
             OutputList = SchemaItem
-                .Where(x => (x.TableName == Input && 
-                             x.IsForeignKey && 
+                .Where(x => (x.TableName == Input &&
+                             x.IsForeignKey &&
                              !string.IsNullOrEmpty(x.RelatedTable)))
-                .Select(x=>x.RelatedTable).Distinct().ToList();
-
+                .Select(x => x.RelatedTable).Distinct().ToList();
         }
     }
 }

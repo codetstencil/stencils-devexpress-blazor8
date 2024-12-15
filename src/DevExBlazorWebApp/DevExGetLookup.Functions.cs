@@ -4,7 +4,6 @@ namespace ZeraSystems.DevExBlazorWebApp
 {
     public partial class DevExGetLookup : DevExpressBase
     {
-
         private void MainFunction()
         {
             var dxCode = GetCode();
@@ -35,5 +34,3 @@ namespace ZeraSystems.DevExBlazorWebApp
         }
     }
 }
-
-

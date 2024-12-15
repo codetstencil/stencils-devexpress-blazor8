@@ -22,10 +22,10 @@ namespace ZeraSystems.DevExBlazorWebApp
     [Export(typeof(ICodeStencilCodeNanite))]
     [CodeStencilCodeNanite(new[]
     {
-        "Zera Systems Inc.",
+        "ZERA Systems Inc.",
         "Returns a List of Tables",
         "Used to create the inject command for related tables to be used as lookup",
-        "1.2",
+        "1.2.6",
         "DevExInjectRelated",
         "ZeraSystems.DevExBlazorWebApp",
         "01-04-2024",

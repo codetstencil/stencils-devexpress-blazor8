@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using ZeraSystems.CodeNanite.Expansion;
 using ZeraSystems.CodeStencil.Contracts;
@@ -15,6 +16,7 @@ namespace ZeraSystems.DevExBlazorWebApp
         private List<string> _tablesList;
 
         private int _colSpanMd = 12;
+
         private void MainFunction()
         {
             _model = Input + "Model";
@@ -45,7 +47,6 @@ namespace ZeraSystems.DevExBlazorWebApp
 
         private string GetDxGridString()
         {
-
             if (!_gridColumns.Any()) return "";
             var gridString = Indent(4) + "<GridColumns>".AddCarriage();
             foreach (var column in _gridColumns)
@@ -57,7 +58,6 @@ namespace ZeraSystems.DevExBlazorWebApp
             return gridString;
         }
 
-
         public string DxGridDataColumn(ISchemaItem item)
         {
             var text = "<DxGridDataColumn " +
@@ -67,13 +67,26 @@ namespace ZeraSystems.DevExBlazorWebApp
             {
                 //text += " />";
                 //return text.Trim();
-                return Indent(8) + text + " />";
+                return Indent(8) + text + " />" + GetCellDisplayTemplate(item);
             }
 
             return EditSettingsString();
 
-
             #region Local Functions
+
+            string GetCellDisplayTemplate(ISchemaItem column)
+            {
+                //var template = string.Empty.AddCarriage();
+                var displayColumn = GenerateEnumControl(column, false);
+                if (displayColumn.IsBlank())
+                    return string.Empty;
+                return 
+                    "".AddCarriage() +
+                    Indent(12) + "<CellDisplayTemplate  Context=\"context\">".AddCarriage()+
+                    Indent(16)+displayColumn.AddCarriage()+
+                    Indent(12) + "</CellDisplayTemplate>".AddCarriage();
+            }
+
             //string Caption(string label) => " Caption=" + (label).AddQuotes();
 
             string FieldName(string model, string column) =>
@@ -98,7 +111,6 @@ namespace ZeraSystems.DevExBlazorWebApp
             //    //https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridDataColumn.DisplayFormat?v=22.1
             //}
 
-
             string EditSettingsString()
             {
                 AppendText();
@@ -119,8 +131,6 @@ namespace ZeraSystems.DevExBlazorWebApp
             //See: https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridDataColumn._members
 
             #endregion Local Functions
-
-
         }
 
         private string GetEditFormLayoutItem()
@@ -134,7 +144,11 @@ namespace ZeraSystems.DevExBlazorWebApp
             foreach (var column in _editColumns)
             {
                 AppendText(Indent(8) + "<DxFormLayoutItem Caption=" + column.ColumnLabel.AddQuotes() + " ColSpanMd=" + "12".AddQuotes() + ">");
-                AppendText(Indent(12) + "@ctx.GetEditor(nameof(item." + column.ColumnName + "))");
+                var combo = GenerateEnumControl(column, true);
+                if (combo.IsBlank())
+                    AppendText(Indent(12) + "@ctx.GetEditor(nameof(item." + column.ColumnName + "))");
+                else
+                    AppendText(Indent(12) + combo);
                 AppendText(Indent(8) + "</DxFormLayoutItem>");
             }
 
@@ -143,6 +157,52 @@ namespace ZeraSystems.DevExBlazorWebApp
 
         }
 
+        private string GenerateEnumControl(ISchemaItem thisColumn, bool isCombo)
+        {
+            var bindValue = "@item."+thisColumn.ColumnName;
+            var enumValue = thisColumn.DefaultValue;
+            if (enumValue.IsBlank()) return string.Empty;
+            else
+            {
+                // Split the input string into pairs
+                var pairs = enumValue.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(pair => pair.Trim().Split('='))
+                    .Where(pair => pair.Length == 2)
+                    .Select(pair => new { Value = pair[0].Trim(), Text = pair[1].Trim() })
+                    .ToList();
+                if (!pairs.Any())
+                    return string.Empty; // Return empty if no valid pairs
+
+                // Construct the Data array dynamically
+                var dataEntries = string.Join(",\n    ", pairs.Select(p => $"new {{ Value = {p.Value}, Text = \"{p.Text}\" }}"));
+
+
+                string enumControl;
+                if (isCombo)
+                {
+                    // Construct and return the DxComboBox markup
+                    enumControl = $@"
+                        <DxComboBox Data=""@(new[] {{
+                        {dataEntries}
+                        }})""
+                        @bind-Value=""{bindValue}""
+                        TextFieldName=""Text""
+                        ValueFieldName=""Value"" />";
+                }
+                else
+                {
+                    // Generate the inline conditional string
+                    var conditionalString = string.Join(" : ", pairs.Select(p => $"((int)context.Value == {p.Value} ? \"{p.Text}\""));
+                    // Close the ternary condition with a default value for null
+                    conditionalString += " : \"\")";
+                    enumControl = $@"@(context.Value != null ? {conditionalString})";
+                }
+                return enumControl;
+            }
+        }
+
+        private bool ContainsColumn(string columnName) => 
+            _editColumns.Any(editColumn => editColumn.ColumnName == columnName);
 
         private string GetCodeBehind()
         {
@@ -150,7 +210,8 @@ namespace ZeraSystems.DevExBlazorWebApp
             AppendText("@code{");
             foreach (var lookup in _lookups)
             {
-                AppendText(Indent(4) + "public LoadResult " + GetLoadedResultName(lookup.RelatedTable) + " { get; set; } = new();");
+                if (ContainsColumn(lookup.ColumnName))
+                    AppendText(Indent(4) + "public LoadResult " + GetLoadedResultName(lookup.RelatedTable) + " { get; set; } = new();");
             }
             AppendText("");
             AppendText(Indent(4) + "readonly DataSourceLoadOptionsBase _options = new();");
@@ -161,8 +222,8 @@ namespace ZeraSystems.DevExBlazorWebApp
             AppendText(Indent(4) + "{");
             foreach (var lookup in _lookups)
             {
-                //AppendText(Indent(8) + lookup.RelatedTable.Pluralize() + " = await Load" + lookup.RelatedTable.Pluralize() + "(_options, _cancellationToken);");
-                AppendText(Indent(8) + GetLoadedResultName(lookup.RelatedTable) + AwaitMethod(lookup) + "(_options, _cancellationToken);");
+                if (ContainsColumn(lookup.ColumnName))
+                    AppendText(Indent(8) + GetLoadedResultName(lookup.RelatedTable) + AwaitMethod(lookup) + "(_options, _cancellationToken);");
             }
             AppendText(Indent(4) + "}");
             AppendText("");
@@ -185,7 +246,9 @@ namespace ZeraSystems.DevExBlazorWebApp
             var createdLookups = new List<string>();
             foreach (var lookup in _lookups)
             {
+                if (!ContainsColumn(lookup.ColumnName)) continue;
                 if (createdLookups.Contains(lookup.RelatedTable)) continue;
+
                 var table = GetRelatedTable(lookup); //  lookup.RelatedTable;
                 AppendText("");
                 AppendText(Indent(4) + "protected Task<LoadResult> Load" + table.Pluralize() + "(DataSourceLoadOptionsBase options, CancellationToken cancellationToken) =>");
@@ -205,12 +268,12 @@ namespace ZeraSystems.DevExBlazorWebApp
             return result;
         }
 
-
         // can the extension method be used here?
         public string GetLoadedResultName(string relatedTable)
         {
             return relatedTable.Pluralize() + "List";
         }
+
     }
 
     public class SchemaItemRelatedTableComparer : IEqualityComparer<ISchemaItem>
@@ -237,5 +300,4 @@ namespace ZeraSystems.DevExBlazorWebApp
             return obj.RelatedTable == null ? 0 : obj.RelatedTable.GetHashCode();
         }
     }
-
 }
