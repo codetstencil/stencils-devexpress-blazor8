@@ -67,7 +67,7 @@ namespace ZeraSystems.DevExBlazorWebApp
             {
                 //text += " />";
                 //return text.Trim();
-                return Indent(8) + text + " />" + GetCellDisplayTemplate(item);
+                return Indent(8) + text + ">" + GetCellDisplayTemplate(item) + "".AddCarriage()+ Indent(12) + "</DxGridDataColumn>".AddCarriage();
             }
 
             return EditSettingsString();
@@ -82,7 +82,7 @@ namespace ZeraSystems.DevExBlazorWebApp
                     return string.Empty;
                 return 
                     "".AddCarriage() +
-                    Indent(12) + "<CellDisplayTemplate  Context=\"context\">".AddCarriage()+
+                    Indent(12) + "<CellDisplayTemplate  >".AddCarriage()+
                     Indent(16)+displayColumn.AddCarriage()+
                     Indent(12) + "</CellDisplayTemplate>".AddCarriage();
             }
@@ -195,7 +195,7 @@ namespace ZeraSystems.DevExBlazorWebApp
                     var conditionalString = string.Join(" : ", pairs.Select(p => $"((int)context.Value == {p.Value} ? \"{p.Text}\""));
                     // Close the ternary condition with a default value for null
                     conditionalString += " : \"\")";
-                    enumControl = $@"@(context.Value != null ? {conditionalString})";
+                    enumControl = $@"@(context.Value != null ? {conditionalString}) : """") ";
                 }
                 return enumControl;
             }
