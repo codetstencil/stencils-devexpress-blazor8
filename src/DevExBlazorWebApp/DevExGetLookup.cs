@@ -24,7 +24,7 @@ namespace ZeraSystems.DevExBlazorWebApp
         "ZERA Systems Inc.",
         "DevExpress Lookup Code",
         "Generates code for a DevExpress Lookup on a form",
-        "1.2.6",
+        "1.2.9",
         "DevExGetLookup",
         "ZeraSystems.DevExBlazorWebApp",
         "02-05-2024",

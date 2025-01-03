@@ -25,10 +25,10 @@ namespace ZeraSystems.DevExBlazorWebApp
         "ZERA Systems Inc.",
         "Code Nanite to code for Data Store elements per Table or View",
         "This Code Nanite will generate  code for Data Store elements per Table or View",
-        "1.0",
+        "1.2.9",
         "DevExSetTableViewDataStore",
         "ZeraSystems.DevExBlazorWebApp",
-        "21-12-2024",
+        "03-01-2025",
         "CS_SET_TABLE_VIEW_DATA_STORE",
         "1",
         "",
@@ -46,6 +46,7 @@ namespace ZeraSystems.DevExBlazorWebApp
             public List<string> InputList { get; set; }
             public void ExecutePlugin()
             {
+                Initializer(SchemaItem, Expander);
                 MainFunction();
                 Output = ExpandedText.ToString();
             }

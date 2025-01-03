@@ -26,7 +26,7 @@ namespace ZeraSystems.DevExBlazorWebApp
         "ZERA Systems Inc.",
         "DevExpress Razor Form",
         "Generates code for a DevExpress Razor Form",
-        "1.2.6",
+        "1.2.9",
         "DevExRazorForm",
         "ZeraSystems.DevExBlazorWebApp",
         "02-05-2024",

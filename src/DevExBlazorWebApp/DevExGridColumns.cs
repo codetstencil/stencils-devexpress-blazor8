@@ -24,7 +24,7 @@ namespace ZeraSystems.DevExBlazorWebApp
         "ZERA Systems Inc.",
         "DevExpress Grid Columns",
         "Generates code for DevExpress Grid Columns",
-        "1.2.6",
+        "1.2.9",
         "DevExGridColumns",
         "ZeraSystems.DevExBlazorWebApp",
         "05-02-2024",

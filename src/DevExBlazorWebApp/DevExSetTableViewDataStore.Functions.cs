@@ -16,8 +16,15 @@ namespace ZeraSystems.DevExBlazorWebApp
         {
             _tableName = Input;
             //_tableLower = _tableName.ToLower();
+            //var tableObject = SchemaItem
+            //    .FirstOrDefault(x=>x.TableName == _tableName && x.ColumnName == _tableName);
+            //if (tableObject != null)
+            //{
+            //    _isTableNotView = tableObject.Schema == "TABLE";
+            //}
             _isTableNotView = GetTableObject(Input).Schema == "TABLE";
             _columns = GetColumns(Input);
+            //_columns = GetTheColumns(SchemaItem, _tableName);
             //_lookupColumns = _columns
             //    .Where(x => x.IsForeignKey && !string.IsNullOrEmpty(x.LookupDisplayColumn))
             //    .ToList();
@@ -57,6 +64,36 @@ namespace ZeraSystems.DevExBlazorWebApp
             }
             return BuildSnippet();
         }
+
+        public List<ISchemaItem> GetTheColumns(
+            List<ISchemaItem> schemaItem,
+            string table,
+            bool onlyIsChecked = true,
+            string excludeColumn = null,
+            bool noCalculated = false)
+        {
+            if (onlyIsChecked)
+                return schemaItem.Where<ISchemaItem>((Func<ISchemaItem, bool>)(e => !string.IsNullOrEmpty(e.ColumnType)))
+                    .Where<ISchemaItem>((Func<ISchemaItem, bool>)(e => e.TableName == table && e.IsChecked == onlyIsChecked))
+                    .Where<ISchemaItem>((Func<ISchemaItem, bool>)(e => e.ColumnName != excludeColumn))
+                    .OrderBy<ISchemaItem, int>((Func<ISchemaItem, int>)(e => e.ColumnSequence))
+                    .ToList<ISchemaItem>();
+            return noCalculated ? schemaItem
+                .Where<ISchemaItem>((Func<ISchemaItem, bool>)(e => !string.IsNullOrEmpty(e.ColumnType)))
+                .Where<ISchemaItem>((Func<ISchemaItem, bool>)(e => e.TableName == table))
+                .Where<ISchemaItem>((Func<ISchemaItem, bool>)(e => e.ColumnName != excludeColumn))
+                .Where<ISchemaItem>((Func<ISchemaItem, bool>)(e => !e.IsCalculatedColumn))
+                .OrderBy<ISchemaItem, int>((Func<ISchemaItem, int>)(e => e.ColumnSequence))
+                .ToList<ISchemaItem>() 
+                : schemaItem
+                .Where<ISchemaItem>((Func<ISchemaItem, bool>)(e => !string.IsNullOrEmpty(e.ColumnType)))
+                .Where<ISchemaItem>((Func<ISchemaItem, bool>)(e => e.TableName == table))
+                .Where<ISchemaItem>((Func<ISchemaItem, bool>)(e => e.ColumnName != excludeColumn))
+                .OrderBy<ISchemaItem, int>((Func<ISchemaItem, int>)(e => e.ColumnSequence))
+                .ToList<ISchemaItem>();
+        }
+
+
     }
 }
 /*
