@@ -25,10 +25,10 @@ namespace ZeraSystems.DevExBlazorWebApp
         "ZERA Systems Inc.",
         "Returns a List of Tables",
         "Used to create the inject command for related tables to be used as lookup",
-        "1.2.9",
+        "1.3.3",
         "DevExInjectRelated",
         "ZeraSystems.DevExBlazorWebApp",
-        "01-04-2024",
+        "05-01-2025",
         "CS_DEVEX_INJECT_RELATED_TABLE",
         "1",
         "",
@@ -42,6 +42,7 @@ namespace ZeraSystems.DevExBlazorWebApp
         public List<string> OutputList { get; set; }
         public List<ISchemaItem> SchemaItem { get; set; }
         public List<IExpander> Expander { get; set; }
+        public List<IDataTransferObject> DataTransferObject { get; set; }
         public List<string> InputList { get ; set; }
 
         public void ExecutePlugin()

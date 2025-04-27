@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using ZeraSystems.CodeNanite.Expansion;
@@ -53,8 +53,9 @@ namespace ZeraSystems.DevExBlazorWebApp
 
         protected string GetRelatedTable(ISchemaItem item)
         {
-            var tableExists = GetTables()
-                .Select(x => x.TableName).ToList().Contains(item.RelatedTable);
+            var tables = GetTables();
+            var tableExists = tables.Select(x => x.TableName).ToList().Contains(item.RelatedTable);
+
             return tableExists ? item.RelatedTable : item.TableName;
             //we will assume it is a self-referencing table
         }

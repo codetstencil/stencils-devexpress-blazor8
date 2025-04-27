@@ -16,14 +16,31 @@ namespace ZeraSystems.DevExBlazorWebApp
         private List<string> _tablesList;
 
         private int _colSpanMd = 12;
+        private bool _isTableNotView;
 
         private void MainFunction()
         {
+            bool.TryParse(GetExpansionString("SUPPORT_SELF_REF_FK"), out var supportSelf);
+
             _model = Input + "Model";
             _lookups = GetForeignKeysInTable(Input).Distinct(new SchemaItemRelatedTableComparer()).ToList();
             _gridColumns = GetColumns(Input);
+            _isTableNotView = GetTableObject(Input).Schema == "TABLE";
+
+            if (!supportSelf)
+            {
+                _gridColumns = _gridColumns.Where(x => x.RelatedTable != Input).ToList();
+            }
+
             _editColumns = GetColumns(Input)
                 .Where(x => x.IsCalculatedColumn is false).ToList();
+            if (!supportSelf)
+            {
+                _editColumns = _editColumns.Where(x => x.RelatedTable != Input).ToList();
+            }
+
+
+
             _tablesList = GetTables().Select(x => x.TableName).ToList();
             var colSpanMd = GetExpansionString("COLSPAN_MD");
             if (!colSpanMd.IsBlank())
@@ -37,9 +54,19 @@ namespace ZeraSystems.DevExBlazorWebApp
             var dxCode = GetCodeBehind();
 
             AppendText();
-            AppendText("<BrowseAndEditCtrl TKey=" + "int".AddQuotes() + " TModel=" + _model.AddQuotes() + ">");
+            var table = GetTableObject(Input);
+            AppendText("<h2>" + table.ColumnLabel + "</h2>".AddCarriage());
+            if (_isTableNotView)
+                AppendText("<BrowseAndEditCtrl TKey=" + "int".AddQuotes() + " TModel=" + _model.AddQuotes() + ">");
+            else
+                AppendText("<BrowseAndEditCtrl TKey=" + "int".AddQuotes() + " TModel=" + _model.AddQuotes() + 
+                            " AllowDelete = "+"false".AddQuotes() + 
+                            " AllowEdit = "+"false".AddQuotes() +
+                            " AllowInsert = "+"false".AddQuotes()+ " >");
+
             AppendText(dxGrid);
-            AppendText(dxFormLayout);
+            if (_isTableNotView)
+                AppendText(dxFormLayout);
             AppendText("</BrowseAndEditCtrl>");
             AppendText("");
             AppendText(dxCode);

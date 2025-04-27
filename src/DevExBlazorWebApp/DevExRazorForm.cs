@@ -26,10 +26,10 @@ namespace ZeraSystems.DevExBlazorWebApp
         "ZERA Systems Inc.",
         "DevExpress Razor Form",
         "Generates code for a DevExpress Razor Form",
-        "1.2.9",
+        "1.3.3",
         "DevExRazorForm",
         "ZeraSystems.DevExBlazorWebApp",
-        "02-05-2024",
+        "05-01-2025",
         "CS_DEVEX_RAZOR_FORM",
         "1",
         "",
@@ -43,6 +43,7 @@ namespace ZeraSystems.DevExBlazorWebApp
         public List<string> OutputList { get; set; }
         public List<ISchemaItem> SchemaItem { get; set; }
         public List<IExpander> Expander { get; set; }
+        public List<IDataTransferObject> DataTransferObject { get; set; }
         public List<string> InputList { get; set; }
 
         public void ExecutePlugin()

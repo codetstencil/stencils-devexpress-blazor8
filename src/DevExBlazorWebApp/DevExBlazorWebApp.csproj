@@ -69,20 +69,14 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="ZeraSystems.CodeNanite.Expansion">
-      <Version>1.5.1</Version>
+      <Version>1.5.4</Version>
     </PackageReference>
     <PackageReference Include="ZeraSystems.CodeStencil.Contracts">
-      <Version>1.5.2</Version>
+      <Version>1.5.5</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="notes.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\ExpansionBase\ZeraSystems.CodeNanite.Expansion.csproj">
-      <Project>{89238a08-d92a-4117-b6f3-f9b1bee61e50}</Project>
-      <Name>ZeraSystems.CodeNanite.Expansion</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

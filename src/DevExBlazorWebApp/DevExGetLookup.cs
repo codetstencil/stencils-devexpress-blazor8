@@ -24,10 +24,10 @@ namespace ZeraSystems.DevExBlazorWebApp
         "ZERA Systems Inc.",
         "DevExpress Lookup Code",
         "Generates code for a DevExpress Lookup on a form",
-        "1.2.9",
+        "1.3.3",
         "DevExGetLookup",
         "ZeraSystems.DevExBlazorWebApp",
-        "02-05-2024",
+        "05-01-2025",
         "CS_DEVEX_GET_LOOKUP",
         "1",
         "",
@@ -41,6 +41,7 @@ namespace ZeraSystems.DevExBlazorWebApp
         public List<string> OutputList { get; set; }
         public List<ISchemaItem> SchemaItem { get; set; }
         public List<IExpander> Expander { get; set; }
+        public List<IDataTransferObject> DataTransferObject { get; set; }
         public List<string> InputList { get; set; }
 
         public void ExecutePlugin()

@@ -24,10 +24,10 @@ namespace ZeraSystems.DevExBlazorWebApp
         "ZERA Systems Inc.",
         "DevExpress Grid Columns",
         "Generates code for DevExpress Grid Columns",
-        "1.2.9",
+        "1.3.3",
         "DevExGridColumns",
         "ZeraSystems.DevExBlazorWebApp",
-        "05-02-2024",
+        "05-01-2025",
         "CS_DEVEX_GRID_COLUMNS",
         "1",
         "",
@@ -41,6 +41,7 @@ namespace ZeraSystems.DevExBlazorWebApp
         public List<string> OutputList { get; set; }
         public List<ISchemaItem> SchemaItem { get; set; }
         public List<IExpander> Expander { get; set; }
+        public List<IDataTransferObject> DataTransferObject { get; set; }
         public List<string> InputList { get; set; }
 
         public void ExecutePlugin()

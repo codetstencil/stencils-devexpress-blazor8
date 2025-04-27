@@ -25,14 +25,14 @@ namespace ZeraSystems.DevExBlazorWebApp
         "ZERA Systems Inc.",
         "Code Nanite to code for Data Store elements per Table or View",
         "This Code Nanite will generate  code for Data Store elements per Table or View",
-        "1.2.9",
+        "1.3.3",
         "DevExSetTableViewDataStore",
         "ZeraSystems.DevExBlazorWebApp",
-        "03-01-2025",
+        "05-01-2025",
         "CS_SET_TABLE_VIEW_DATA_STORE",
         "1",
         "",
-        "https://"
+        "https://help.codestencil.com/custom-stencils/devexpress-blazor-web-app"
     })]
 
         public partial class DevExSetTableViewDataStore : ExpansionBase, ICodeStencilCodeNanite
@@ -43,6 +43,7 @@ namespace ZeraSystems.DevExBlazorWebApp
             public List<string> OutputList { get; set; }
             public List<ISchemaItem> SchemaItem { get; set; }
             public List<IExpander> Expander { get; set; }
+            public List<IDataTransferObject> DataTransferObject { get; set; }
             public List<string> InputList { get; set; }
             public void ExecutePlugin()
             {
